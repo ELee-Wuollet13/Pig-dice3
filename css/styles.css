@@ -1,2 +1,9 @@
-#result {
+/* #result {
   display: none;
+} */
+.winner {
+  display: none;
+}
+#showgame{
+  display: none;
+};
