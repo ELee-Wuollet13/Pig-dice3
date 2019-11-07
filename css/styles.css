@@ -1,10 +1,30 @@
 /* #result {
   display: none;
 } */
+h1 {
+  text-align: center;
+  font-family: impact;
+}
+input {
+  width: 100%;
+}
+button {
+  margin: 5px;
+}
+
+#badroll {
+  display: none;
+  margin: 10%;
+  padding-top: 30%;
+  padding-bottom: 30%;
+  text-align: center;
+
+}
 .winner {
   display: none;
 }
 
 #showgame{
+  text-align: center;
   display: none;
 };

@@ -29,7 +29,8 @@ Game.prototype.assignId = function() {
 
 // THIS FUNCTION WILL CREATE RANDOM NUMBER BETWEEN 1 AND 6.
 Player.prototype.diceThrow = function() {
-  var thisRoll = []
+
+  var thisRoll = [];
   for(i = 0; i < this.diceRolls; i++) {
     let min = Math.ceil(7);
     let max = Math.floor(0);
@@ -39,7 +40,9 @@ Player.prototype.diceThrow = function() {
   };
 
   return thisRoll;
+
 };
+
 
 Player.prototype.diceAdd = function() {
   var newResult = 0;
@@ -57,25 +60,40 @@ Player.prototype.playerPass= function() {
   this.score += this.diceAdd();
   this.currentRoll = [];
   if (this.score >= 100 ) {
+    var winningPlayer = this.name;
+    $('#winner').text(winningPlayer + "  with " + this.score + " points!")
     $(".winner").show();
   }
 };
 
 
 //UI
+
+
 $(document).ready(function() {
   $("#form").submit(function(event) {
     event.preventDefault();
-    var inputedPlayer1 = $("input#player1").val();
-    var inputedPlayer2 = $("input#player2").val();
-    var diceRollsOpt = parseInt($("#multiDice").val());
 
+
+    var playerType = $("input#computer").val();
+    var inputedPlayer1 = $("input#player1").val();
+    var human1 = $('#human1').val();
+    var inputedPlayer2 = $("input#player2").val();
+    var human2 = $('#human2').val();
+    var diceRollsOpt = parseInt($("#multiDice").val());
     let player1 = new Player(inputedPlayer1, diceRollsOpt);
     let player2 = new Player(inputedPlayer2, diceRollsOpt);
-    console.log(player1);
+    let computer = new Player("Steve the Robot", diceRollsOpt);
+    if(playerType === "robot"){
+      $('#player2buttons').hide();
+      $('#player2name').text(computer.name);
+    } else {
+      $('#player2name').text(inputedPlayer2);
+    };
 
     $('#player1name').text(inputedPlayer1);
-    $('#player2name').text(inputedPlayer2);
+
+    $('.user-input').hide();
     $("#showgame").show();
     $("#player1roll").click(function() {
       $('#current-roll1').text(player1.diceThrow())
@@ -84,21 +102,33 @@ $(document).ready(function() {
 
     $('#player1pass').click(function() {
       player1.playerPass();
-      console.log(player1)
-      $('#current-total1').text(player1.score)
-      $('.player2ShowGame').show();
-      $('.player1ShowGame').hide();
+      $('#current-total1').text(player1.score);
+      if(playerType === "robot") {
+        robot();
+      }
     })
+    function robot() {
+      $('#current-roll2').text(computer.diceThrow());
+      $('#current-roll2').text(computer.diceThrow());
+      $('#current-round2').text(computer.diceAdd());
+      $('#current-total2').text(computer.score);
+      computer.playerPass();
+
+    }
+
+
     $("#player2roll").click(function() {
       $('#current-roll2').text(player2.diceThrow())
+
       $("#current-round2").text(player2.diceAdd());
     });
 
     $('#player2pass').click(function() {
       player2.playerPass();
       $('#current-total2').text(player2.score);
-      $('.player2ShowGame').hide();
-      $('.player1ShowGame').show();
-    })
-  });
+
+
+
+    });
+  })
 });

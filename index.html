@@ -10,53 +10,70 @@
   <title>Pig Dice</title>
 </head>
 <body>
-  <form id="form">
+  <div class="container">
 
-    <div class="card-header">
-      <h3>Pig Dice!</h3>
-    </div>
-    <div class="card-body">
-      <p></p>
-      <label for="accountName">Enter player 1 name</label>
-      <input type="text" id="player1">
-      <label for="initialDeposit">Enter player 2 name </label>
-      <input type="text" id="player2">
-      <label for="multiDiceOpt">Pick how dice you want to play with!</label>
-      <input id="multiDice" type="number" min=0>
-      <button type="submit" name="button">Submit</button>
+    <form id="form">
 
-    </div>
-  </form>
-  <div class="container" id="showgame">
-    <div class="card player1ShowGame">
-      <h2>Player one:<span id="player1name"></span></h2>
-      <button id="player1roll" type="button">roll</button>
-      <button id="player1pass" type="button">pass</button>
-      <button id="player1TwoDiceRoll" type="button" name="button"></button>
-      <h2>This Roll:</h2>
-      <p id="current-roll1"></p>
-      <h2>This Round</h2>
-      <p id="current-round1"></p>
-    </div>
+      <div class="card-header">
+        <h1>Pig Dice!</h1>
+      </div>
+      <div class="card-body user-input">
+        <label for="accountName">Enter player 1 name</label>
+        <input type="text" id="player1">
 
-    <div class="card player2ShowGame">
-      <h2>Player two: <span id="player2name"></span></h2>
-      <button id="player2roll" type="button">roll</button>
-      <button id="player2pass" type="button">pass</button>
-      <button id="player2TwoDiceRoll" type="button" name="button"></button>
-      <h2>This Roll:</h2>
-      <p id="current-roll2"></p>
-      <h2>This Round</h2>
-      <p id="current-round2"></p>
 
+        <div>
+          <label for="">Play Computer?</label>
+          <input type="checkbox" id="computer" value="robot">
+        </div>
+        <label for="initialDeposit">Enter player 2 name </label>
+        <input type="text" id="player2">
+
+        <label for="multiDiceOpt">Pick how dice you want to play with!</label>
+        <input id="multiDice" type="number" min=1 value=1>
+        <button class="btn btn-dark" type="submit" name="button">Submit</button>
+
+      </div>
+    </form>
+    <div class="container" id="showgame">
+      <div class="row">
+
+        <div class="card col player1ShowGame">
+          <h2>Player one:<span id="player1name"></span></h2>
+          <button class="btn btn-dark" id="player1roll" type="button">roll</button>
+          <button class="btn btn-dark" id="player1pass" type="button">pass</button>
+          <h2>This Roll:</h2>
+          <p id="current-roll1"></p>
+          <h2>This Round</h2>
+          <p id="current-round1"></p>
+        </div>
+        <div class="card col">
+          <h2>Player 1 Total Score:</h2>
+          <p id="current-total1"></p>
+          <h2>Player 2 Total Score:</h2>
+          <p id="current-total2"></p>
+        </div>
+
+
+        <div class="card col player2ShowGame">
+          <h2>Player two: <span id="player2name"></span></h2>
+          <div id='player2buttons'>
+          <button class="btn btn-dark" id="player2roll" type="button">roll</button>
+          <button class="btn btn-dark" id="player2pass" type="button">pass</button>
+        </div>
+          <h2>This Roll:</h2>
+          <p id="current-roll2"></p>
+          <h2>This Round</h2>
+          <p id="current-round2"></p>
+
+        </div>
+
+      </div>
     </div>
-    <h2>Player 1 Total Score:</h2>
-    <p id="current-total1"></p>
-    <h2>Player 2 Total Score:</h2>
-    <p id="current-total2"></p>
+    <div class="winner">
+      <h1>The winner is: <span id='winner'> </span></h1>
+    </div>
   </div>
-  <div class="winner">
-    <h1>The winner is:</h1>
-  </div>
+
 </body>
 </html>
