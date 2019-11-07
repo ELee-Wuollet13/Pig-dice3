@@ -60,8 +60,7 @@ Player.prototype.playerPass= function() {
   this.score += this.diceAdd();
   this.currentRoll = [];
   if (this.score >= 100 ) {
-    var winningPlayer = this.name;
-    $('#winner').text(winningPlayer + "  with " + this.score + " points!")
+    $('#winner').text(this.name + "  with " + this.score + " points!")
     $(".winner").show();
   }
 };
