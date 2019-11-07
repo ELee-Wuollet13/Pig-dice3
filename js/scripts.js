@@ -6,8 +6,9 @@ function Game() {
 }
 
 // THIS CONSTRUCTOR WILL HOLD PLAYER NAME AND TOTAL SCORE VALUES
-function Player(name) {
+function Player(name, diceRolls) {
   this.name = name,
+  this.diceRolls = diceRolls,
   this.score = 0,
   this.currentRoll = [];
 
@@ -28,13 +29,17 @@ Game.prototype.assignId = function() {
 
 // THIS FUNCTION WILL CREATE RANDOM NUMBER BETWEEN 1 AND 6.
 Player.prototype.diceThrow = function() {
-  let min = Math.ceil(7);
-  let max = Math.floor(0);
-  let dice =  Math.floor(Math.random() * (max - min + 1)) + min;
-  this.currentRoll.push(dice);
-  console.log(dice);
-  return dice;
-}
+  var thisRoll = []
+  for(i = 0; i < this.diceRolls; i++) {
+    let min = Math.ceil(7);
+    let max = Math.floor(0);
+    let dice =  Math.floor(Math.random() * (max - min + 1)) + min;
+    this.currentRoll.push(dice);
+    thisRoll.push(dice);
+  };
+
+  return thisRoll;
+};
 
 Player.prototype.diceAdd = function() {
   var newResult = 0;
@@ -53,55 +58,47 @@ Player.prototype.playerPass= function() {
   this.currentRoll = [];
   if (this.score >= 100 ) {
     $(".winner").show();
-  // if(pass === player1) {
-    //   this.score += this.diceAdd();
-    // }
   }
+};
 
 
-  };
+//UI
+$(document).ready(function() {
+  $("#form").submit(function(event) {
+    event.preventDefault();
+    var inputedPlayer1 = $("input#player1").val();
+    var inputedPlayer2 = $("input#player2").val();
+    var diceRollsOpt = parseInt($("#multiDice").val());
 
-  // console.log(player1.diceAdd());
-  //UI
+    let player1 = new Player(inputedPlayer1, diceRollsOpt);
+    let player2 = new Player(inputedPlayer2, diceRollsOpt);
+    console.log(player1);
 
-  $(document).ready(function() {
-
-    $("#form").submit(function(event) {
-      event.preventDefault();
-
-      var inputedPlayer1 = $("input#player1").val();
-      var inputedPlayer2 = $("input#player2").val();
-      let player1 = new Player(inputedPlayer1)
-      let player2 = new Player(inputedPlayer2)
-      $('#player1name').text(inputedPlayer1);
-      $('#player2name').text(inputedPlayer2);
-      // player1.diceThrow()
-      // console.log(player1);
-      $("#showgame").show();
-
-      $("#player1roll").click(function() {
-        // player1.diceThrow();
-        $('#current-roll1').text(player1.diceThrow())
-        $("#current-round1").text(player1.diceAdd());
-      });
-      $('#player1pass').click(function() {
-        player1.playerPass();
-        console.log(player1)
-        $('#current-total1').text(player1.score)
-
-      })
-
-      $("#player2roll").click(function() {
-        // player2.diceThrow();
-        $('#current-roll2').text(player2.diceThrow())
-        $("#current-round2").text(player2.diceAdd());
-      });
-      $('#player2pass').click(function() {
-        player2.playerPass();
-        console.log(player2)
-        $('#current-total2').text(player2.score)
-      })
+    $('#player1name').text(inputedPlayer1);
+    $('#player2name').text(inputedPlayer2);
+    $("#showgame").show();
+    $("#player1roll").click(function() {
+      $('#current-roll1').text(player1.diceThrow())
+      $("#current-round1").text(player1.diceAdd());
     });
 
+    $('#player1pass').click(function() {
+      player1.playerPass();
+      console.log(player1)
+      $('#current-total1').text(player1.score)
+      $('.player2ShowGame').show();
+      $('.player1ShowGame').hide();
+    })
+    $("#player2roll").click(function() {
+      $('#current-roll2').text(player2.diceThrow())
+      $("#current-round2").text(player2.diceAdd());
+    });
 
+    $('#player2pass').click(function() {
+      player2.playerPass();
+      $('#current-total2').text(player2.score);
+      $('.player2ShowGame').hide();
+      $('.player1ShowGame').show();
+    })
   });
+});
