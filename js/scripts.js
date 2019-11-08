@@ -65,14 +65,11 @@ Player.prototype.playerPass= function() {
   }
 };
 
-
 //UI
-
 
 $(document).ready(function() {
   $("#form").submit(function(event) {
     event.preventDefault();
-
 
     var playerType = $("input#computer").val();
     var inputedPlayer1 = $("input#player1").val();
@@ -95,8 +92,9 @@ $(document).ready(function() {
     $('.user-input').hide();
     $("#showgame").show();
     $("#player1roll").click(function() {
-      $('#current-roll1').text(player1.diceThrow())
+      player1.diceThrow();
       $("#current-round1").text(player1.diceAdd());
+      $('#current-roll1').text(player1.currentRoll);
     });
 
     $('#player1pass').click(function() {
@@ -107,26 +105,38 @@ $(document).ready(function() {
       }
     })
     function robot() {
-      $('#current-roll2').text(computer.diceThrow());
-      $('#current-roll2').text(computer.diceThrow());
+      computer.diceThrow();
+      computer.diceThrow();
       $('#current-round2').text(computer.diceAdd());
-      $('#current-total2').text(computer.score);
+      $('#current-roll2').text(computer.currentRoll);
       computer.playerPass();
-
-    }
-
+        $('#current-total2').text(computer.score);
+    };
+    // function robot() {
+    //   computer.diceThrow();
+    //   if(computer.diceAdd() === 0 ){
+    //     return;
+    //   } else if (computer.diceAdd() < 13) {
+    //     computer.diceThrow();
+    //   } else if (computer.diceAdd() >= 13) {
+    //     return;
+    //   }
+    //   $('#current-round2').text(computer.diceAdd());
+    //   $('#current-roll2').text(computer.currentRoll);
+    //   computer.playerPass();
+    //     $('#current-total2').text(computer.score);
+    // }
 
     $("#player2roll").click(function() {
       $('#current-roll2').text(player2.diceThrow())
 
       $("#current-round2").text(player2.diceAdd());
+      $('#current-roll2').text(player2.currentRoll);
     });
 
     $('#player2pass').click(function() {
       player2.playerPass();
       $('#current-total2').text(player2.score);
-
-
 
     });
   })
